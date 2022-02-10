@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using RPG_Characters.CustomExceptions;
 using RPGCharacters.Models.Items;
 using static RPGCharacters.Models.Item;
 
@@ -27,9 +29,11 @@ namespace RPGCharacters.Models.Classes
         private readonly int _strengthPerLevel;
         private readonly int _dexterityPerLevel;
         private readonly int _intelligencePerLevel;
+        private readonly Weapon.Type _allowedWeaponTypes;
+        private readonly Armor.Type _allowedArmorTypes;
 
 
-        public Character(string name, int baseStrength, int baseDexterity, int baseIntelligence, int strengthPerLevel, int dexterityPerLevel, int intelligencePerLevel)
+        public Character(string name, int baseStrength, int baseDexterity, int baseIntelligence, int strengthPerLevel, int dexterityPerLevel, int intelligencePerLevel, Weapon.Type allowedWeaponTypes, Armor.Type allowedArmorTypes)
         {
             BaseStrength =  new PrimaryAttribute(baseStrength);
             BaseDexterity = new PrimaryAttribute(baseDexterity);
@@ -43,7 +47,8 @@ namespace RPGCharacters.Models.Classes
             _strengthPerLevel = strengthPerLevel;
             _dexterityPerLevel = dexterityPerLevel;
             _intelligencePerLevel = intelligencePerLevel;
-
+            _allowedWeaponTypes = allowedWeaponTypes;
+            _allowedArmorTypes = allowedArmorTypes;
         }
 
         public virtual void LevelUp()
@@ -57,15 +62,36 @@ namespace RPGCharacters.Models.Classes
 
         public void EquipItem(Item item)
         {
-            // TODO: Throw InvalidArmorException upon failed ARMOR equip
-            // TODO: Throw InvalidWeaponException upon failed WEAPON equip
+            if (item is Weapon)
+            {
+                if (!_allowedWeaponTypes.HasFlag(((Weapon)item).WeaponType))
+                {
+                    throw new InvalidWeaponException(string.Format("{0} class does not support weapon type {1}", Name, ((Weapon)item).WeaponType));
+                }
+                else if (item.RequiredLevel > Level)
+                {
+                    throw new InvalidWeaponException("Weapon equip failed, Level is too high");
+                }
+            }
 
-            _equippedItems.Add(item.ItemSlot, item);
+            if (item is Armor)
+            {
+                if (!_allowedArmorTypes.HasFlag(((Armor)item).ArmorType))
+                {
+                    throw new InvalidArmorException(string.Format("Failed to equip armor for {0}. {1} is not allowed type", Name, ((Armor)item).ArmorType));
+                }
+                else if (item.RequiredLevel > Level)
+                {
+                    throw new InvalidArmorException("Armor equip failed, Level is too high");
+                }
+            }
+
+        _equippedItems.Add(item.ItemSlot, item);
 
             if (item is Armor)
             {
                 Armor armor = (Armor)item;
-                if(armor.Strength.Value > 0)
+                if (armor.Strength.Value > 0)
                     _totalStrengthAttributes.Add(armor.Strength);
                 if (armor.Dexterity.Value > 0)
                     _totalDexterityAttributes.Add(armor.Dexterity);
@@ -74,11 +100,11 @@ namespace RPGCharacters.Models.Classes
             }
         }
 
-        public virtual int GetDamage()
+        public virtual float GetDamage()
         {
             // TODO: Fix this calculation to the correct one
             int totalStength = _totalDexterityAttributes.Sum(s => s.Value);
-            int weaponDamage = ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond();
+            float weaponDamage = ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond();
             return totalStength + weaponDamage;
         }
     }

@@ -6,4 +6,10 @@
     <RootNamespace>RPG_Characters</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="CustomExceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomExceptions\" />
+  </ItemGroup>
 </Project>
