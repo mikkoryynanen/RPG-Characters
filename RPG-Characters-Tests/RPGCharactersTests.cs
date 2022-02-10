@@ -2,6 +2,7 @@
 using RPGCharacters.Models.Classes;
 using Xunit;
 using System.Collections.Generic;
+using RPGCharacters;
 
 namespace RPG_Characters_Tests
 {
@@ -42,13 +43,9 @@ namespace RPG_Characters_Tests
             int expectedDexterity = 2;
             int expextedIntelligence = 1;
 
-            int actualStrength = warrior.BaseStrength.Value;
-            int actualDexterity = warrior.BaseDexterity.Value;
-            int actualIntelligence = warrior.BaseIntelligence.Value;
-
-            Assert.Equal(expectedStrength, actualStrength);
-            Assert.Equal(expectedDexterity, actualDexterity);
-            Assert.Equal(expextedIntelligence, actualIntelligence);
+            Assert.Equal(expectedStrength, warrior.Attributes.Strength);
+            Assert.Equal(expectedDexterity, warrior.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, warrior.Attributes.Intelligence);
         }
 
         [Fact]
@@ -61,13 +58,9 @@ namespace RPG_Characters_Tests
             int expectedDexterity = 4;
             int expextedIntelligence = 2;
 
-            int actualStrength = warrior.Strength.Value;
-            int actualDexterity = warrior.Dexterity.Value;
-            int actualIntelligence = warrior.Intelligence.Value;
-
-            Assert.Equal(expectedStrength, actualStrength);
-            Assert.Equal(expectedDexterity, actualDexterity);
-            Assert.Equal(expextedIntelligence, actualIntelligence);
+            Assert.Equal(expectedStrength, warrior.Attributes.Strength);
+            Assert.Equal(expectedDexterity, warrior.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, warrior.Attributes.Intelligence);
         }
     }
 }
