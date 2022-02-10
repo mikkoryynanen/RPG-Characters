@@ -8,9 +8,9 @@ namespace RPGCharacters.Models.Classes
             
         }
 
-        public override void GainLevel()
+        public override void LevelUp()
         {
-            base.GainLevel();
+            base.LevelUp();
         }
     }
 }

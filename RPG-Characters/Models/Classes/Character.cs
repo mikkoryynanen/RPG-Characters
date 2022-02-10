@@ -16,13 +16,13 @@ namespace RPGCharacters.Models.Classes
 
         private Dictionary<Slot, Item> _equippedItems = new Dictionary<Slot, Item>();
 
-        private PrimaryAttribute Strength { get; set; } = new PrimaryAttribute(0);
-        private PrimaryAttribute Dexterity { get; set; } = new PrimaryAttribute(0);
-        private PrimaryAttribute Intelligence { get; set; } = new PrimaryAttribute(0);
+        public PrimaryAttribute Strength { get; private set; }
+        public PrimaryAttribute Dexterity { get; private set; }
+        public PrimaryAttribute Intelligence { get; private set; }
 
-        private readonly PrimaryAttribute BaseStrength;
-        private readonly PrimaryAttribute BaseDexterity;
-        private readonly PrimaryAttribute BaseIntelligence;
+        public readonly PrimaryAttribute BaseStrength;
+        public readonly PrimaryAttribute BaseDexterity;
+        public readonly PrimaryAttribute BaseIntelligence;
         private readonly int _maxLevel = 15;
         private readonly int _strengthPerLevel;
         private readonly int _dexterityPerLevel;
@@ -35,13 +35,18 @@ namespace RPGCharacters.Models.Classes
             BaseDexterity = new PrimaryAttribute(baseDexterity);
             BaseIntelligence =  new PrimaryAttribute(baseIntelligence);
 
+            Strength = new PrimaryAttribute(BaseStrength.Value);
+            Dexterity = new PrimaryAttribute(BaseDexterity.Value);
+            Intelligence = new PrimaryAttribute(BaseIntelligence.Value);
+
             Name = name;
             _strengthPerLevel = strengthPerLevel;
             _dexterityPerLevel = dexterityPerLevel;
             _intelligencePerLevel = intelligencePerLevel;
+
         }
 
-        public virtual void GainLevel()
+        public virtual void LevelUp()
         {
             Strength.Add(_strengthPerLevel);
             Dexterity.Add(_dexterityPerLevel);
