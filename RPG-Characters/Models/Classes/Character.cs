@@ -11,20 +11,11 @@ namespace RPGCharacters.Models.Classes
     {
         public string Name { get; private set; }
         public int Level { get; private set; } = 1;
+        public PrimaryAttributes Attributes { get; private set; }
 
-        private List<PrimaryAttribute> _totalStrengthAttributes = new List<PrimaryAttribute>();
-        private List<PrimaryAttribute> _totalDexterityAttributes = new List<PrimaryAttribute>();
-        private List<PrimaryAttribute> _totalIntelligenceAttributes = new List<PrimaryAttribute>();
-
+        protected List<PrimaryAttributes> _totalAttributesFromItems = new List<PrimaryAttributes>();
         private Dictionary<Slot, Item> _equippedItems = new Dictionary<Slot, Item>();
 
-        public PrimaryAttribute Strength { get; private set; }
-        public PrimaryAttribute Dexterity { get; private set; }
-        public PrimaryAttribute Intelligence { get; private set; }
-
-        public readonly PrimaryAttribute BaseStrength;
-        public readonly PrimaryAttribute BaseDexterity;
-        public readonly PrimaryAttribute BaseIntelligence;
         private readonly int _maxLevel = 15;
         private readonly int _strengthPerLevel;
         private readonly int _dexterityPerLevel;
@@ -35,13 +26,12 @@ namespace RPGCharacters.Models.Classes
 
         public Character(string name, int baseStrength, int baseDexterity, int baseIntelligence, int strengthPerLevel, int dexterityPerLevel, int intelligencePerLevel, Weapon.Type allowedWeaponTypes, Armor.Type allowedArmorTypes)
         {
-            BaseStrength =  new PrimaryAttribute(baseStrength);
-            BaseDexterity = new PrimaryAttribute(baseDexterity);
-            BaseIntelligence =  new PrimaryAttribute(baseIntelligence);
-
-            Strength = new PrimaryAttribute(BaseStrength.Value);
-            Dexterity = new PrimaryAttribute(BaseDexterity.Value);
-            Intelligence = new PrimaryAttribute(BaseIntelligence.Value);
+            Attributes = new PrimaryAttributes
+            {
+                Strength = baseStrength,
+                Dexterity = baseDexterity,
+                Intelligence = baseIntelligence
+            };
 
             Name = name;
             _strengthPerLevel = strengthPerLevel;
@@ -53,16 +43,23 @@ namespace RPGCharacters.Models.Classes
 
         public virtual void LevelUp()
         {
-            Strength.Add(_strengthPerLevel);
-            Dexterity.Add(_dexterityPerLevel);
-            Intelligence.Add(_intelligencePerLevel);
+            Attributes.Add(new PrimaryAttributes
+            {
+               Strength = _strengthPerLevel,
+               Dexterity = _dexterityPerLevel,
+               Intelligence = _intelligencePerLevel
+            });
 
             Level = Level < _maxLevel ? Level + 1 : Level;
         }
 
-        public void EquipItem(Item item)
+        public string EquipItem(Item item)
         {
-            if (item is Weapon)
+            bool isArmor = item is Armor;
+
+            #region Error Check
+            // TODO: Find out if there is more elegant way of doing this
+            if (!isArmor)
             {
                 if (!_allowedWeaponTypes.HasFlag(((Weapon)item).WeaponType))
                 {
@@ -73,8 +70,7 @@ namespace RPGCharacters.Models.Classes
                     throw new InvalidWeaponException("Weapon equip failed, Level is too high");
                 }
             }
-
-            if (item is Armor)
+            else
             {
                 if (!_allowedArmorTypes.HasFlag(((Armor)item).ArmorType))
                 {
@@ -85,27 +81,35 @@ namespace RPGCharacters.Models.Classes
                     throw new InvalidArmorException("Armor equip failed, Level is too high");
                 }
             }
+            #endregion
 
-        _equippedItems.Add(item.ItemSlot, item);
+            _equippedItems.Add(item.ItemSlot, item);
 
-            if (item is Armor)
+            if (isArmor)
             {
                 Armor armor = (Armor)item;
-                if (armor.Strength.Value > 0)
-                    _totalStrengthAttributes.Add(armor.Strength);
-                if (armor.Dexterity.Value > 0)
-                    _totalDexterityAttributes.Add(armor.Dexterity);
-                if (armor.Intelligence.Value > 0)
-                    _totalIntelligenceAttributes.Add(armor.Intelligence);
+                _totalAttributesFromItems.Add(armor.Attributes);
             }
+
+            return isArmor ? "New armor equipped!" : "New weapon equipped!";
         }
 
-        public virtual float GetDamage()
+        protected float GetDamage(int totalAttributesFromItems, int totalAttributesFromLevel)
         {
-            // TODO: Fix this calculation to the correct one
-            int totalStength = _totalDexterityAttributes.Sum(s => s.Value);
-            float weaponDamage = ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond();
-            return totalStength + weaponDamage;
+            // TODO: See which stat gives this class damage. ie. Str for Warrior
+            //int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Strength);
+            //int totalAttributesFromLevel = Attributes.Strength;
+
+            int totalAttributes = totalAttributesFromLevel + totalAttributesFromItems;
+
+            float weaponDPS = HasItemInSlot(Slot.Weapon) ? ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond() : 1f;
+
+            return weaponDPS * (1 + totalAttributes / 100);
+        }
+
+        public bool HasItemInSlot(Slot slot)
+        {
+            return _equippedItems.ContainsKey(slot);
         }
     }
 }

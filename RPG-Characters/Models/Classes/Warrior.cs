@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
+using RPG_Characters.Models.Classes;
+
 namespace RPGCharacters.Models.Classes
 {
-    public class Warrior : Character
+    public class Warrior : Character, IDamageable
     {
         public Warrior(string name = "Warrior")
             : base(
@@ -12,6 +15,13 @@ namespace RPGCharacters.Models.Classes
                   allowedArmorTypes: Items.Armor.Type.Mail | Items.Armor.Type.Plate
                   )
         { 
+        }
+
+        public float GetCharacterDamage()
+        {
+            int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Strength);
+            int totalAttributesFromLevel = Attributes.Strength;
+            return base.GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
         }
 
         public override void LevelUp()

@@ -1,19 +1,23 @@
 ﻿using System;
 namespace RPGCharacters
 {
-    public class PrimaryAttribute
+    public class PrimaryAttributes
     {
-        public int Value { get; private set; }
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Intelligence { get; set; }
         //static public PrimaryAttribute operator +(PrimaryAttribute pa) => pa;
 
-        public PrimaryAttribute(int value)
-        {
-            this.Value = value;
-        }
+        //public PrimaryAttribute(Stren)
+        //{
+        //    this.Value = value;
+        //}
 
-        public void Add(int val)
+        public void Add(PrimaryAttributes attributes)
         {
-            Value += val;
+            Strength += attributes.Strength;
+            Dexterity += attributes.Dexterity;
+            Intelligence += attributes.Intelligence;
         }
     }
 }

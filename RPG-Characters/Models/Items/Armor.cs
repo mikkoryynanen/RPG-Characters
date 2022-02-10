@@ -14,13 +14,12 @@ namespace RPGCharacters.Models.Items
             Plate = 8
         }
         public Type ArmorType { get; private set; }
-        public PrimaryAttribute Strength { get; private set; } = new PrimaryAttribute(0);
-        public PrimaryAttribute Dexterity { get; private set; } = new PrimaryAttribute(0);
-        public PrimaryAttribute Intelligence { get; private set; } = new PrimaryAttribute(0);
+        public PrimaryAttributes Attributes { get; private set; }
 
-        public Armor(string name, int requiredlevel, Slot itemSlot, Type armorType, PrimaryAttribute[] attributes) : base(name, requiredlevel, itemSlot)
+        public Armor(string name, int requiredlevel, Slot itemSlot, Type armorType, PrimaryAttributes attributes) : base(name, requiredlevel, itemSlot)
         {
             ArmorType = armorType;
+            Attributes = attributes;
         }
     }
 }
