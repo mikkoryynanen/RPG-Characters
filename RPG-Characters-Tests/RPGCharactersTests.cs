@@ -1,8 +1,6 @@
-﻿using System;
+﻿using RPG_Characters.Models.Classes;
 using RPGCharacters.Models.Classes;
 using Xunit;
-using System.Collections.Generic;
-using RPGCharacters;
 
 namespace RPG_Characters_Tests
 {
@@ -61,6 +59,34 @@ namespace RPG_Characters_Tests
             Assert.Equal(expectedStrength, warrior.Attributes.Strength);
             Assert.Equal(expectedDexterity, warrior.Attributes.Dexterity);
             Assert.Equal(expextedIntelligence, warrior.Attributes.Intelligence);
+        }
+
+        [Fact]
+        public void Constructor_MageInitializedSuccesfullyWithDefaultValues_ShouldBeLevel1MageWithCorrectDefaultValues()
+        {
+            Mage mage = new Mage();
+            int expectedStrength = 1;
+            int expectedDexterity = 1;
+            int expextedIntelligence = 8;
+
+            Assert.Equal(expectedStrength, mage.Attributes.Strength);
+            Assert.Equal(expectedDexterity, mage.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, mage.Attributes.Intelligence);
+        }
+
+        [Fact]
+        public void GainLevel_MageGainedLevelSuccesfully_ShouldBeLevel2MageWithCorrectValuesAttributes()
+        {
+            Mage mage = new Mage();
+            mage.LevelUp();
+
+            int expectedStrength = 2;
+            int expectedDexterity = 2;
+            int expextedIntelligence = 13;
+
+            Assert.Equal(expectedStrength, mage.Attributes.Strength);
+            Assert.Equal(expectedDexterity, mage.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, mage.Attributes.Intelligence);
         }
     }
 }
