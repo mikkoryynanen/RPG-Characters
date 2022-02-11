@@ -116,5 +116,33 @@ namespace RPG_Characters_Tests
             Assert.Equal(expectedDexterity, ranger.Attributes.Dexterity);
             Assert.Equal(expextedIntelligence, ranger.Attributes.Intelligence);
         }
+
+        [Fact]
+        public void Constructor_RogueInitializedSuccesfullyWithDefaultValues_ShouldBeLevel1RogueWithCorrectDefaultValues()
+        {
+            Rogue rogue = new Rogue();
+            int expectedStrength = 2;
+            int expectedDexterity = 6;
+            int expextedIntelligence = 1;
+
+            Assert.Equal(expectedStrength, rogue.Attributes.Strength);
+            Assert.Equal(expectedDexterity, rogue.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, rogue.Attributes.Intelligence);
+        }
+
+        [Fact]
+        public void GainLevel_RogueGainedLevelSuccesfully_ShouldBeLevel2RogueWithCorrectValuesAttributes()
+        {
+            Rogue rogue = new Rogue();
+            rogue.LevelUp();
+
+            int expectedStrength = 3;
+            int expectedDexterity = 10;
+            int expextedIntelligence = 2;
+
+            Assert.Equal(expectedStrength, rogue.Attributes.Strength);
+            Assert.Equal(expectedDexterity, rogue.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, rogue.Attributes.Intelligence);
+        }
     }
 }
