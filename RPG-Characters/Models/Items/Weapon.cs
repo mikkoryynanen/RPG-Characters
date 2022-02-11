@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG_Characters;
 
 namespace RPGCharacters.Models.Items
 {
@@ -16,20 +17,22 @@ namespace RPGCharacters.Models.Items
             Wand = 64
         }
         public Type WeaponType { get; private set; }
+        private readonly WeaponAttributes Attributes;
 
-        private readonly int _baseDamage;
-        private readonly float _baseAttackSpeed;
 
         public Weapon(string name, int requiredlevel, int damage, float attackSpeed, Type weaponType) : base(name, requiredlevel, Slot.Weapon)
         {
-            _baseDamage = damage;
-            _baseAttackSpeed = attackSpeed;
+            Attributes = new WeaponAttributes
+            {
+                Damage = damage,
+                AttackSpeed = attackSpeed
+            };
             WeaponType = weaponType;
         }
 
         public float GetDamagePerSecond()
         {
-            return _baseDamage * _baseAttackSpeed;
+            return Attributes.Damage * Attributes.AttackSpeed;
         }
     }
 }
