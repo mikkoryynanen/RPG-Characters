@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RPG_Characters.CustomExceptions;
 using RPGCharacters.Models.Items;
 using static RPGCharacters.Models.Item;
@@ -58,7 +59,6 @@ namespace RPGCharacters.Models.Classes
             bool isArmor = item is Armor;
 
             #region Error Check
-            // TODO: Find out if there is more elegant way of doing this
             if (!isArmor)
             {
                 if (!_allowedWeaponTypes.HasFlag(((Weapon)item).WeaponType))
@@ -96,12 +96,7 @@ namespace RPGCharacters.Models.Classes
 
         protected float GetDamage(int totalAttributesFromItems, int totalAttributesFromLevel)
         {
-            // TODO: See which stat gives this class damage. ie. Str for Warrior
-            //int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Strength);
-            //int totalAttributesFromLevel = Attributes.Strength;
-
             int totalAttributes = totalAttributesFromLevel + totalAttributesFromItems;
-
             float weaponDPS = HasItemInSlot(Slot.Weapon) ? ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond() : 1f;
 
             return weaponDPS * (1 + totalAttributes / 100);

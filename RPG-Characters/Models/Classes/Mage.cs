@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using RPG_Characters.Misc;
 using RPGCharacters.Models.Classes;
 using RPGCharacters.Models.Items;
 
 namespace RPG_Characters.Models.Classes
 {
-    public class Mage : Character, IDamageable
+    public class Mage : Hero
     {
         public Mage()
             : base(
@@ -18,11 +20,16 @@ namespace RPG_Characters.Models.Classes
         {
         }
 
-        public float GetCharacterDamage()
+        public override float GetCharacterDamage()
         {
             int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Intelligence);
             int totalAttributesFromLevel = Attributes.Intelligence;
-            return base.GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
+            return GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
+        }
+
+        public override void ShowStats()
+        {
+            Console.WriteLine(StatBuilder.GenerateStats(Name, Level, GetCharacterDamage(), Attributes));
         }
     }
 }

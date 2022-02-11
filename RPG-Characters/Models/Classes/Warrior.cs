@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using RPG_Characters.Misc;
 using RPG_Characters.Models.Classes;
 
 namespace RPGCharacters.Models.Classes
 {
-    public class Warrior : Character, IDamageable
+    public class Warrior : Hero
     {
-        public Warrior(string name = "Warrior")
+        public Warrior()
             : base(
-                  name,
+                  "Warrior",
                   baseStrength: 5, baseDexterity: 2, baseIntelligence: 1,
                   strengthPerLevel: 3, dexterityPerLevel: 2, intelligencePerLevel: 1,
                   allowedWeaponTypes: Items.Weapon.Type.Axe | Items.Weapon.Type.Hammer | Items.Weapon.Type.Sword,
                   allowedArmorTypes: Items.Armor.Type.Mail | Items.Armor.Type.Plate
                   )
-        { 
+        {
         }
 
-        public float GetCharacterDamage()
+        public override float GetCharacterDamage()
         {
-            int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Strength);
-            int totalAttributesFromLevel = Attributes.Strength;
+            int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Dexterity);
+            int totalAttributesFromLevel = Attributes.Dexterity;
             return base.GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
         }
 
-        public override void LevelUp()
+        public override void ShowStats()
         {
-            base.LevelUp();
+            Console.WriteLine(StatBuilder.GenerateStats(Name, Level, GetCharacterDamage(), Attributes));
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using RPG_Characters.Misc;
 using RPGCharacters.Models.Classes;
 using RPGCharacters.Models.Items;
 
 namespace RPG_Characters.Models.Classes
 {
-    public class Rogue : Character, IDamageable
+    public class Rogue : Hero
     {
         public Rogue()
             : base(
@@ -17,11 +19,16 @@ namespace RPG_Characters.Models.Classes
         {
         }
 
-        public float GetCharacterDamage()
+        public override float GetCharacterDamage()
         {
             int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Dexterity);
             int totalAttributesFromLevel = Attributes.Dexterity;
             return base.GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
+        }
+
+        public override void ShowStats()
+        {
+            Console.WriteLine(StatBuilder.GenerateStats(Name, Level, GetCharacterDamage(), Attributes));
         }
     }
 }
