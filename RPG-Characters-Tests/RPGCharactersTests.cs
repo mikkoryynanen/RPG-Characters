@@ -88,5 +88,33 @@ namespace RPG_Characters_Tests
             Assert.Equal(expectedDexterity, mage.Attributes.Dexterity);
             Assert.Equal(expextedIntelligence, mage.Attributes.Intelligence);
         }
+
+        [Fact]
+        public void Constructor_RangerInitializedSuccesfullyWithDefaultValues_ShouldBeLevel1RangerWithCorrectDefaultValues()
+        {
+            Ranger ranger = new Ranger();
+            int expectedStrength = 1;
+            int expectedDexterity = 7;
+            int expextedIntelligence = 1;
+
+            Assert.Equal(expectedStrength, ranger.Attributes.Strength);
+            Assert.Equal(expectedDexterity, ranger.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, ranger.Attributes.Intelligence);
+        }
+
+        [Fact]
+        public void GainLevel_RangerGainedLevelSuccesfully_ShouldBeLevel2RangerWithCorrectValuesAttributes()
+        {
+            Ranger ranger = new Ranger();
+            ranger.LevelUp();
+
+            int expectedStrength = 2;
+            int expectedDexterity = 12;
+            int expextedIntelligence = 2;
+
+            Assert.Equal(expectedStrength, ranger.Attributes.Strength);
+            Assert.Equal(expectedDexterity, ranger.Attributes.Dexterity);
+            Assert.Equal(expextedIntelligence, ranger.Attributes.Intelligence);
+        }
     }
 }
