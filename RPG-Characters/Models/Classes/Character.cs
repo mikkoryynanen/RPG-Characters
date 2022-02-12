@@ -39,7 +39,7 @@ namespace RPG_Characters.Models.Classes
             _allowedArmorTypes = allowedArmorTypes;
         }
 
-        public virtual void LevelUp()
+        public void LevelUp()
         {
             Attributes.Add(new PrimaryAttributes
             {
