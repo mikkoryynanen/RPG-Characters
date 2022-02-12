@@ -1,4 +1,4 @@
-﻿namespace RPGCharacters.Models
+﻿namespace RPG_Characters.Models
 {
     public abstract class Item
     {

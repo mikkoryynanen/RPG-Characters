@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RPGCharacters
+namespace RPG_Characters
 {
     public class PrimaryAttributes
     {

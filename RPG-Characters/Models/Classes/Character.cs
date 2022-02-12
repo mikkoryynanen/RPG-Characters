@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using RPG_Characters.CustomExceptions;
-using RPGCharacters.Models.Items;
-using static RPGCharacters.Models.Item;
+using RPG_Characters.Models.Items;
+using static RPG_Characters.Models.Item;
 
-namespace RPGCharacters.Models.Classes
+namespace RPG_Characters.Models.Classes
 {
     public abstract class Character
     {

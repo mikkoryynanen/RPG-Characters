@@ -4,7 +4,7 @@ using System.Text;
 using RPG_Characters.Misc;
 using RPG_Characters.Models.Classes;
 
-namespace RPGCharacters.Models.Classes
+namespace RPG_Characters.Models.Classes
 {
     public class Warrior : Hero
     {

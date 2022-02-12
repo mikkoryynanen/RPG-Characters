@@ -1,7 +1,7 @@
 ﻿using System;
 using RPG_Characters;
 
-namespace RPGCharacters.Models.Items
+namespace RPG_Characters.Models.Items
 {
     public class Weapon : Item
     {

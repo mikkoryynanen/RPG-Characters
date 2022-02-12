@@ -1,5 +1,5 @@
 ﻿using RPG_Characters.Models.Classes;
-using RPGCharacters.Models.Classes;
+using RPG_Characters.Models.Classes;
 using Xunit;
 
 namespace RPG_Characters_Tests

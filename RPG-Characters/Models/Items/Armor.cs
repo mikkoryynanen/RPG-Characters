@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RPGCharacters.Models.Items
+namespace RPG_Characters.Models.Items
 {
     public class Armor : Item
     {

@@ -1,7 +1,7 @@
 ﻿using RPG_Characters.CustomExceptions;
-using RPGCharacters;
-using RPGCharacters.Models.Classes;
-using RPGCharacters.Models.Items;
+using RPG_Characters;
+using RPG_Characters.Models.Classes;
+using RPG_Characters.Models.Items;
 using Xunit;
 
 namespace RPG_Characters_Tests
@@ -23,7 +23,7 @@ namespace RPG_Characters_Tests
         public void EquipItem_EquippingHighLevelArmor_ShouldThrowInvalidArmorExeption()
         {
             Warrior warrior = new Warrior();
-            Armor testArmor = new Armor("Armor of testing", 2, RPGCharacters.Models.Item.Slot.Body, Armor.Type.Cloth, new PrimaryAttributes
+            Armor testArmor = new Armor("Armor of testing", 2, RPG_Characters.Models.Item.Slot.Body, Armor.Type.Cloth, new PrimaryAttributes
             {
                 Intelligence = 5
             });
@@ -49,7 +49,7 @@ namespace RPG_Characters_Tests
         public void EquipItem_EquipWrongArmorType_ShouldThrowInvalidArmorException()
         {
             Warrior warrior = new Warrior();
-            Armor testArmor = new Armor("Armor of testing", 1, RPGCharacters.Models.Item.Slot.Body, Armor.Type.Cloth, new PrimaryAttributes
+            Armor testArmor = new Armor("Armor of testing", 1, RPG_Characters.Models.Item.Slot.Body, Armor.Type.Cloth, new PrimaryAttributes
             {
                 Intelligence = 5
             });
@@ -64,7 +64,7 @@ namespace RPG_Characters_Tests
         {
             string expectedMessage = "New armor equipped!";
             Warrior warrior = new Warrior();
-            Armor testArmor = new Armor("Armor of testing", 1, RPGCharacters.Models.Item.Slot.Body, Armor.Type.Plate, new PrimaryAttributes
+            Armor testArmor = new Armor("Armor of testing", 1, RPG_Characters.Models.Item.Slot.Body, Armor.Type.Plate, new PrimaryAttributes
             {
                 Strength = 1
             });
@@ -111,7 +111,7 @@ namespace RPG_Characters_Tests
 
             Warrior warrior = new Warrior();
             Weapon weapon = new Weapon("Axe of testing", 1, 7, 1.1f, Weapon.Type.Axe);
-            Armor armor = new Armor("Armor of testing", 1, RPGCharacters.Models.Item.Slot.Body, Armor.Type.Plate, new PrimaryAttributes { Strength = 10 });
+            Armor armor = new Armor("Armor of testing", 1, RPG_Characters.Models.Item.Slot.Body, Armor.Type.Plate, new PrimaryAttributes { Strength = 10 });
 
             warrior.EquipItem(armor);
             warrior.EquipItem(weapon);

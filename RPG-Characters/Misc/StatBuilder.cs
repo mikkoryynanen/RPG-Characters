@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection.Emit;
-using System.Text;
-using System.Xml.Linq;
-using RPGCharacters;
+﻿using System.Text;
 
 namespace RPG_Characters.Misc
 {
