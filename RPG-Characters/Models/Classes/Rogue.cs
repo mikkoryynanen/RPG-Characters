@@ -23,7 +23,7 @@ namespace RPG_Characters.Models.Classes
         {
             int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Dexterity);
             int totalAttributesFromLevel = Attributes.Dexterity;
-            return base.GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
+            return base.CalculateDamage(totalAttributesFromItems, totalAttributesFromLevel);
         }
 
         public override void ShowStats()

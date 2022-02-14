@@ -92,6 +92,7 @@ namespace RPG_Characters.Models.Classes
         }
 
         protected float GetDamage(int totalAttributesFromItems, int totalAttributesFromLevel)
+        protected float CalculateDamage(int totalAttributesFromItems, int totalAttributesFromLevel)
         {
             int totalAttributes = totalAttributesFromLevel + totalAttributesFromItems;
             float weaponDPS = HasItemInSlot(Slot.Weapon) ? ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond() : 1f;

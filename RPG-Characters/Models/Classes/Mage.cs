@@ -24,7 +24,7 @@ namespace RPG_Characters.Models.Classes
         {
             int totalAttributesFromItems = _totalAttributesFromItems.Sum(i => i.Intelligence);
             int totalAttributesFromLevel = Attributes.Intelligence;
-            return GetDamage(totalAttributesFromItems, totalAttributesFromLevel);
+            return CalculateDamage(totalAttributesFromItems, totalAttributesFromLevel);
         }
 
         public override void ShowStats()
