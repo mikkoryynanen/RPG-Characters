@@ -30,6 +30,9 @@ namespace RPG_Characters.Models.Items
             WeaponType = weaponType;
         }
 
+        /// <summary>
+        /// Gets the weapons Damage Per Second (DPS)
+        /// </summary>
         public float GetDamagePerSecond()
         {
             return Attributes.Damage * Attributes.AttackSpeed;

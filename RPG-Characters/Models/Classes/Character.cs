@@ -5,6 +5,9 @@ using static RPG_Characters.Models.Item;
 
 namespace RPG_Characters.Models.Classes
 {
+    /// <summary>
+    /// Base class for all characters
+    /// </summary>
     public abstract class Character
     {
         public string Name { get; private set; }
@@ -39,6 +42,9 @@ namespace RPG_Characters.Models.Classes
             _allowedArmorTypes = allowedArmorTypes;
         }
 
+        /// <summary>
+        /// Increases the Level and increases PrimaryAttributes by set perLevel attributes on class constructor
+        /// </summary>
         public void LevelUp()
         {
             Attributes.Add(new PrimaryAttributes
@@ -51,6 +57,13 @@ namespace RPG_Characters.Models.Classes
             Level = Level < _maxLevel ? Level + 1 : Level;
         }
 
+        /// <summary>
+        /// Tries to equip the given item.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>"New armor/weapon equipped!" string</returns>
+        /// <exception cref="InvalidWeaponException">Is thrown if trying to equip unallowed weapon type</exception>
+        /// <exception cref="InvalidArmorException">Is thrown if trying to equip unallowed armor type</exception>
         public string EquipItem(Item item)
         {
             bool isArmor = item is Armor;
@@ -91,15 +104,24 @@ namespace RPG_Characters.Models.Classes
             return isArmor ? "New armor equipped!" : "New weapon equipped!";
         }
 
-        protected float GetDamage(int totalAttributesFromItems, int totalAttributesFromLevel)
+        /// <summary>
+        /// Calculates the total damage with attributes from level and items
+        /// </summary>
+        /// <param name="totalAttributesFromItems"></param>
+        /// <param name="totalAttributesFromLevel"></param>
+        /// <returns>Calculated damage</returns>
         protected float CalculateDamage(int totalAttributesFromItems, int totalAttributesFromLevel)
         {
             int totalAttributes = totalAttributesFromLevel + totalAttributesFromItems;
-            float weaponDPS = HasItemInSlot(Slot.Weapon) ? ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond() : 1f;
+            float weaponDPS = HasItemInSlot(Slot.Weapon) ? ((Weapon)_equippedItems[Slot.Weapon]).GetDamagePerSecond() : 1f
 
             return weaponDPS * (1 + totalAttributes / 100);
         }
 
+        /// <summary>
+        /// Checks if the slot has an item in it
+        /// </summary>
+        /// <param name="slot">Item slot to check</param>
         public bool HasItemInSlot(Slot slot)
         {
             return _equippedItems.ContainsKey(slot);

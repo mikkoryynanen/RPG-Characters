@@ -4,6 +4,10 @@ namespace RPG_Characters.Misc
 {
     public class StatBuilder
     {
+        /// <summary>
+        /// Generates character stats list
+        /// </summary>
+        /// <returns>Generated stats list</returns>
         public static string GenerateStats(string name, int level, float damage, PrimaryAttributes attributes)
         {
             StringBuilder stats = new StringBuilder();

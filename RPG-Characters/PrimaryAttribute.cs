@@ -13,6 +13,10 @@ namespace RPG_Characters
         //    this.Value = value;
         //}
 
+        /// <summary>
+        /// Add given PrimaryAttributes to current values
+        /// </summary>
+        /// <param name="attributes">PrimaryAttributes object to add to current values</param>
         public void Add(PrimaryAttributes attributes)
         {
             Strength += attributes.Strength;
