@@ -24,7 +24,6 @@ namespace RPG_Characters.Models.Classes
         private readonly Weapon.Type _allowedWeaponTypes;
         private readonly Armor.Type _allowedArmorTypes;
 
-
         public Character(string name, int baseStrength, int baseDexterity, int baseIntelligence, int strengthPerLevel, int dexterityPerLevel, int intelligencePerLevel, Weapon.Type allowedWeaponTypes, Armor.Type allowedArmorTypes)
         {
             Attributes = new PrimaryAttributes

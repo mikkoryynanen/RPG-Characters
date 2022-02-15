@@ -6,12 +6,6 @@ namespace RPG_Characters
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Intelligence { get; set; }
-        //static public PrimaryAttribute operator +(PrimaryAttribute pa) => pa;
-
-        //public PrimaryAttribute(Stren)
-        //{
-        //    this.Value = value;
-        //}
 
         /// <summary>
         /// Add given PrimaryAttributes to current values

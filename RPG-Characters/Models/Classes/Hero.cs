@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using RPG_Characters.Models.Classes;
-using RPG_Characters.Models.Items;
+﻿using RPG_Characters.Models.Items;
 
 namespace RPG_Characters.Models.Classes
 {
