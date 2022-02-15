@@ -24,6 +24,9 @@ namespace RPG_Characters.Models.Classes
         private readonly Weapon.Type _allowedWeaponTypes;
         private readonly Armor.Type _allowedArmorTypes;
 
+        /// <param name="name">Character name</param>
+        /// <param name="allowedWeaponTypes">Allowed Weapons as flags</param>
+        /// <param name="allowedArmorTypes">Allowed Armor as flags</param>
         public Character(string name, int baseStrength, int baseDexterity, int baseIntelligence, int strengthPerLevel, int dexterityPerLevel, int intelligencePerLevel, Weapon.Type allowedWeaponTypes, Armor.Type allowedArmorTypes)
         {
             Attributes = new PrimaryAttributes

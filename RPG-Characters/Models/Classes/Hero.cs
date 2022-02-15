@@ -15,7 +15,14 @@ namespace RPG_Characters.Models.Classes
         {
         }
 
+        /// <summary>
+        /// Gets the characters damage. Individual implemenation on each class due to main damage providing stat being different
+        /// </summary>
+        /// <returns>Calculated damage from character</returns>
         public abstract float GetCharacterDamage();
+        /// <summary>
+        /// Prints out the class stats to the cnosole
+        /// </summary>
         public abstract void ShowStats();
     }
 }
